@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_adress_fd.c                                     :+:      :+:    :+:   */
+/*   ft_address.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mawako <maedayukimi@42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 15:38:21 by tel-mouh          #+#    #+#             */
-/*   Updated: 2022/11/23 06:21:17 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/09/25 19:12:28 by mawako            #+#    #+#             */
+/*   Updated: 2024/10/19 12:02:02 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include "ft_printf.h"
 
-static int	lennum(unsigned long int n, int base)
+static int	len(unsigned long int n, int hexa)
 {
 	int	i;
 
@@ -21,30 +22,30 @@ static int	lennum(unsigned long int n, int base)
 		return (1);
 	while (n > 0)
 	{
-		n /= base;
+		n /= hexa;
 		i++;
 	}
 	return (i);
 }
 
-int	ft_adress_fd(unsigned long int n, int fd, char c)
+int	ft_address(unsigned long int n, char c)
 {
-	char	*m;
-	char	*t;
+	char	*large;
+	char	*x;
 	char	*s;
 
-	m = "0123456789ABCDEF";
-	t = "0123456789abcdef";
+	large = "0123456789ABCDEF";
+	x = "0123456789abcdef";
 	if (c == 'x')
-		s = t;
+		s = x;
 	else
-		s = m;
+		s = large;
 	if (n < 16)
-		ft_putchar_fd(s[n], fd);
+		ft_putchar(s[n]);
 	else
 	{
-		ft_adress_fd(n / 16, fd, c);
-		ft_adress_fd(n % 16, fd, c);
+		ft_address(n / 16, c);
+		ft_address(n % 16, c);
 	}
-	return (lennum(n, 16) - 1);
+	return (len(n, 16) - 1);
 }

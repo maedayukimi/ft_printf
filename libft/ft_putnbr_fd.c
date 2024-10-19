@@ -3,36 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/13 03:59:02 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/12/06 00:58:44 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/07/01 15:14:20 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/11 14:31:09 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd, int *t)
+void	ft_putnbr_fd(int n, int fd)
 {
+	char	*s;
+	int		len;
+
 	if (n == -2147483648)
 	{
 		write(fd, "-2147483648", 11);
-		*t += 10;
 		return ;
 	}
-	if (n < 0)
-		*t += 1;
-	if (n < 0)
+	s = ft_itoa(n);
+	if (s != NULL)
 	{
-		n *= -1;
-		ft_putchar_fd ('-', fd);
-	}
-	if (n < 10)
-		ft_putchar_fd(n + 48, fd);
-	else
-	{
-		ft_putnbr_fd(n / 10, fd, t);
-		ft_putnbr_fd(n % 10, fd, t);
-		*t += 1;
+		len = ft_strlen(s);
+		write (fd, s, len);
+		free(s);
 	}
 }

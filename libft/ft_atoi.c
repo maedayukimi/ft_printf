@@ -3,48 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <mawako@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 11:03:55 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/11/18 07:03:56 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/08/23 15:24:12 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/11 09:59:43 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
-static	int	ft_isspace(char c)
+int	ft_max(int s)
 {
-	if (c == ' ' || c == '\n' || c == '\t' || c == '\v' || \
-	c == '\f' || c == '\r')
+	if (s == 1)
+		return ((int)LONG_MAX);
+	if (s == -1)
+		return ((int)LONG_MIN);
+	return (0);
+}
+
+int	ft_long(long num, int c)
+{
+	if (num == 0)
+		return (0);
+	if ((LONG_MAX - c) / 10 < num && c > 0)
+		return (1);
+	if ((LONG_MIN - c) / 10 > num && c < 0)
 		return (1);
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *n)
 {
-	int					sign;
-	unsigned long long	result;
+	long	res;
+	int		sign;
 
+	res = 0;
 	sign = 1;
-	result = 0;
-	while (ft_isspace((char)*str))
-		str++;
-	if (*str == '-' || *str == '+')
+	while ((*n >= 9 && *n <= 13) || *n == 32)
+		n++;
+	if (*n == '+' || *n == '-')
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		if (*n == '-')
+			sign *= -1;
+		n++;
 	}
-	while ((char)ft_isdigit(*str))
+	while (*n >= '0' && *n <= '9')
 	{
-		result = (result * 10) + (*str++ - '0');
-		if (9223372036854775807 < result)
-		{
-			if (sign > 0)
-				return (-1);
-			else
-				return (0);
-		}
+		if (ft_long(res, ((*n - '0')) * sign))
+			return (ft_max(sign));
+		res = res * 10 + sign * (*n - 48);
+		n++;
 	}
-	return (result * sign);
+	return ((int)res);
 }

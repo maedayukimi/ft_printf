@@ -3,54 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/12 22:26:50 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/11/18 07:13:22 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/06/21 16:06:04 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/11 09:46:52 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	lennum(int n)
+static char	*ft_char(char *s, unsigned int num, long int len)
 {
-	int	i;
-
-	i = 0;
-	if (n == 0)
-		return (1);
-	while ((unsigned int)n > 0)
+	while (num > 0)
 	{
-		n /= 10;
-		i++;
+		s[len--] = 48 + (num % 10);
+		num /= 10;
 	}
-	return (i);
+	return (s);
+}
+
+static long int	ft_len(int n)
+{
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+		len = 1;
+	while (n)
+	{
+		len++;
+		n /= 10;
+	}
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	int		len;
-	char	*p;
-	long	r;
+	char		*s;
+	long int	len;
+	size_t		num;
+	int			sign;
 
-	r = n;
-	len = lennum(r);
-	if (r < 0)
-	{
-		len++;
-		r = -1 * r;
-	}
-	p = (char *)malloc(len + 1);
-	if (!p)
-		return (NULL);
-	p[len] = 0;
-	while (len > 0)
-	{
-		p[len - 1] = r % 10 + '0';
-		r /= 10;
-		len--;
-	}
+	sign = 1;
+	len = ft_len(n);
+	s = (char *)malloc(sizeof(char) * (len + 1));
+	if (!s)
+		return (0);
+	s[len--] = 0;
+	if (n == 0)
+		s[0] = '0';
 	if (n < 0)
-		p[0] = '-';
-	return (p);
+	{
+		sign *= -1;
+		num = n * -1;
+		s[0] = '-';
+	}
+	else
+		num = n;
+	s = ft_char(s, num, len);
+	return (s);
 }

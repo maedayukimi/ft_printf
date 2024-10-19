@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 10:45:38 by mawako            #+#    #+#             */
-/*   Updated: 2024/09/07 15:10:14 by mawako           ###   ########.fr       */
+/*   Created: 2024/07/12 10:51:33 by mawako            #+#    #+#             */
+/*   Updated: 2024/07/16 10:45:42 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	size_t	i;
-	size_t	len;
-	char	*res;
+	t_list	*node;
 
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
-	res = malloc(len * sizeof(char) + 1);
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (i < len)
+	if (!lst)
+		return ;
+	while (*lst)
 	{
-		res[i] = (*f)(i, s[i]);
-		i++;
+		node = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = node;
 	}
-	res[i] = 0;
-	return (res);
 }

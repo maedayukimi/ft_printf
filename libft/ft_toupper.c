@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 14:06:33 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/11/18 07:57:33 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/08/24 15:20:34 by mawako            #+#    #+#             */
+/*   Updated: 2024/08/24 15:23:02 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	ft_toupper(int c)
 {
-	if (ft_isalpha(c))
-		if (c > 96)
-			c -= 32;
+	if (ft_isalpha(c) && c >= 'a')
+		return (c - 32);
 	return (c);
 }

@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mawako <maedayukimi@42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:14:06 by mawako            #+#    #+#             */
-/*   Updated: 2024/08/24 15:18:35 by mawako           ###   ########.fr       */
+/*   Created: 2024/09/25 19:13:27 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/25 19:15:24 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/libft.h"
 
-int	ft_isprint(int c)
+void	ft_putnbr(int n, int *len)
 {
-	return (c >= 32 && c <= 126);
+	char	*s;
+
+	if (n == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		*len += 10;
+		return ;
+	}
+	s = ft_itoa(n);
+	*len += ft_strlen(s) - 1;
+	ft_putstr_fd(s, 1);
+	free(s);
 }

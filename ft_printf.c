@@ -3,62 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mawako <maedayukimi@42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 13:22:19 by tel-mouh          #+#    #+#             */
-/*   Updated: 2022/11/23 06:44:08 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/09/23 11:52:07 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/25 19:57:17 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	litters(va_list *a, const char *s, int i, int t)
+static int	formatter(va_list *a, const char *s, int i, int len)
 {
-	t = 0;
 	if (s[i + 1] == 'c')
-		ft_putchar_fd(va_arg(*a, int), 1);
+		ft_putchar(va_arg(*a, int));
 	else if (s[i + 1] == 's')
-		t = ft_putstr_printf_fd(va_arg(*a, char *), 1);
+		len = ft_string(va_arg(*a, char *));
 	else if (s[i + 1] == '%')
-		ft_putchar_fd('%', 1);
+		ft_putchar('%');
 	else if (s[i + 1] == 'd' || s[i + 1] == 'i')
-		ft_putnbr_fd(va_arg(*a, int), 1, &t);
+		ft_putnbr(va_arg(*a, int), &len);
 	else if (s[i + 1] == 'u')
-		ft_unsigned_fd(va_arg(*a, unsigned int), 1, &t);
+		ft_unsigned(va_arg(*a, unsigned int), &len);
 	else if (s[i + 1] == 'x' || s[i + 1] == 'X')
-		t = ft_hexa_fd(va_arg(*a, long), 1, s[i + 1]);
-	else if (s[i + 1] == 'x' || s[i + 1] == 'X')
-		t = ft_hexa_fd(va_arg(*a, long), 1, s[i + 1]);
+		len = ft_hex(va_arg(*a, long), s[i + 1]);
 	else if (s[i + 1] == 'p')
 	{
 		ft_putstr_fd("0x", 1);
-		t = ft_adress_fd(va_arg(*a, long), 1, 'x') + 2;
+		len = ft_address(va_arg(*a, long), 'x') + 2;
 	}
-	else 
-		ft_putchar_fd(s[i + 1], 1);
-	return (t);
+	else
+		ft_putchar(s[i + 1]);
+	return (len);
 }
 
 int	ft_printf(const char *s, ...)
 {
 	int		i;
-	int		t;
-	int		r;
+	int		res;
 	va_list	a;
 
-	t = 0;
-	i = -1;
-	r = 0;
+	i = 0;
+	res = 0;
 	va_start(a, s);
-	while (s[++i])
+	while (s[i])
 	{
 		if (s[i] == '%' && s[i + 1])
-			t += litters(&a, s, i++, r);
+			res += formatter(&a, s, i++, 0);
 		else
-			ft_putchar_fd(s[i], 1);
-		t++;
+			ft_putchar(s[i]);
+		res++;
+		i++;
 	}
 	va_end(a);
-	return (t);
+	return (res);
 }
-

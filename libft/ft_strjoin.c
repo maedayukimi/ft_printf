@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 17:54:06 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/11/18 07:46:25 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/08/27 07:16:21 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/08 17:51:29 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*p;
-	size_t	lens;
-	size_t	lenf;
+	char	*src;
 
 	if (!s1 || !s2)
 		return (NULL);
-	lens = ft_strlen(s2);
-	lenf = ft_strlen(s1);
-	p = (char *)malloc(lenf + lens + 1);
-	if (!p)
+	src = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!src)
 		return (NULL);
-	ft_strlcpy(p, s1, lenf + 1);
-	ft_strlcat(p, s2, lenf + lens + 1);
-	return (p);
+	ft_strlcpy(src, s1, ft_strlen(s1) + 1);
+	ft_strlcat(src, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	return (src);
 }

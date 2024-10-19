@@ -3,81 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/13 04:09:40 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/11/18 07:41:35 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/08/28 06:37:23 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/11 16:34:53 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	countwords(const char *s, char c)
+static size_t	count(char const *s, char c)
 {
-	int	i;
-	int	t;
+	size_t	i;
+	size_t	count;
 
-	i = -1;
-	t = 0;
-	while (s[++i])
+	i = 0;
+	count = 0;
+	while (s[i])
 	{
-		if (s[i] == c && (s[i + 1] != c && s[i + 1]))
-			t++;
-		if (!i && s[i] != c)
-			t++;
-	}
-	return (t);
-}
-
-static	int	nex(const char *s, char c, int i)
-{
-	int	t;
-
-	t = 0;
-	while (s[i] && s[i] != c)
-	{
-		t++;
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0))
+			count++;
 		i++;
 	}
-	return (t);
+	return (count);
 }
 
-static	int	freetable(char **tab, char *s, int i)
+static size_t	split_words(char **res, char const *s, char c, size_t word)
 {
-	if (!s)
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	i = 0;
+	while (s[j])
 	{
-		while (i)
-			free(tab[i--]);
-		free(tab[i]);
-		return (1);
+		if (s[j] == c || s[j] == 0)
+			i = j + 1;
+		if (s[j] != c && (s[j + 1] == c || s[j + 1] == 0))
+		{
+			res[word] = malloc(sizeof(char) * (j - i + 2));
+			if (!res[word])
+			{
+				while (word++)
+					free(res[word]);
+				return (0);
+			}
+			ft_strlcpy(res[word], (s + i), j - i + 2);
+			word++;
+		}
+		j++;
 	}
-	return (0);
+	res[word] = 0;
+	return (1);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	int		t;
-	char	**tab;
+	char	**res;
 
-	i = -1;
-	t = 0;
 	if (!s)
-		return (NULL);
-	tab = malloc(sizeof(char *) * (countwords(s, c) + 1));
-	if (!tab)
-		return (NULL);
-	while (s[++i])
-	{
-		if (s[i] != c && t < countwords(s, c))
-		{
-			tab[t] = ft_substr(s, i, nex(s, c, i));
-			if (freetable(tab, tab[t], t))
-				return (NULL);
-			tab[t++][nex(s, c, i)] = 0;
-			i += nex(s, c, i);
-		}
-	}
-	tab[t] = NULL;
-	return (tab);
+		return (0);
+	res = malloc(sizeof(char *) * (count(s, c) + 1));
+	if (!res)
+		return (0);
+	if (!split_words(res, s, c, 0))
+		return (free(res), NULL);
+	return (res);
 }

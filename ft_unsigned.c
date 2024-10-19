@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_unsigned.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <maedayukimi@42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/14 10:04:38 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/11/18 07:17:35 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/09/25 19:13:34 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/25 19:24:11 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
+#include "ft_printf.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_unsigned(unsigned int n, int *len)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	if (n < 10)
+		ft_putchar(n + 48);
+	else
+	{
+		ft_unsigned(n / 10, len);
+		ft_unsigned(n % 10, len);
+		*len += 1;
+	}
 }

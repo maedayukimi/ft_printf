@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <maedayukimi@42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/06 00:57:10 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/12/06 08:23:05 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/09/25 19:12:46 by mawako            #+#    #+#             */
+/*   Updated: 2024/10/19 11:55:52 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include "libft/libft.h"
+# include <stdarg.h>
 
-void	ft_unsigned_fd(unsigned int n, int fd, int *t);
-int		ft_adress_fd(unsigned long int n, int fd, char c);
-int		ft_hexa_fd(unsigned int n, int fd, char c);
-void	ft_putnbr_fd(int n, int fd, int *t);
-int		ft_putstr_printf_fd(char *s, int fd);
+int		ft_string(char *s);
+void	ft_unsigned(unsigned int n, int *t);
+void	ft_putnbr(int n, int *t);
+void	ft_putchar(char c);
+int		ft_hex(unsigned int n, char c);
+int		ft_address(unsigned long int n, char c);
+
 #endif

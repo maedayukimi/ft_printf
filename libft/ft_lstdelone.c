@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsigned_fd.c                                      :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 15:31:03 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/12/06 00:59:58 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/07/09 10:41:23 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/08 17:53:30 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_unsigned_fd(unsigned int n, int fd, int *t)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (n < 10)
-		ft_putchar_fd(n + 48, fd);
-	else
-	{
-		ft_unsigned_fd(n / 10, fd, t);
-		ft_unsigned_fd(n % 10, fd, t);
-		*t += 1;
-	}
+	if (!lst || !del)
+		return ;
+	del(lst->content);
+	free(lst);
 }

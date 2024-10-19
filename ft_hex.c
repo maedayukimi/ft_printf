@@ -1,50 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hexa_fd.c                                       :+:      :+:    :+:   */
+/*   ft_hex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mawako <maedayukimi@42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 18:58:40 by tel-mouh          #+#    #+#             */
-/*   Updated: 2022/11/23 06:21:27 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/09/23 11:44:28 by mawako            #+#    #+#             */
+/*   Updated: 2024/10/19 12:01:34 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include "ft_printf.h"
 
-static int	lennum(unsigned int n, int base)
+static int	len(unsigned int n, int hexa)
 {
 	int	i;
 
 	i = 0;
-	if (!n)
+	if (n == 0)
 		return (1);
 	while (n > 0)
 	{
-		n /= base;
+		n /= hexa;
 		i++;
 	}
 	return (i);
 }
 
-int	ft_hexa_fd(unsigned int n, int fd, char c)
+int	ft_hex(unsigned int n, char c)
 {
-	char	*m;
-	char	*t;
+	char	*large;
+	char	*x;
 	char	*s;
 
-	m = "0123456789ABCDEF";
-	t = "0123456789abcdef";
+	large = "0123456789ABCDEF";
+	x = "0123456789abcdef";
 	if (c == 'x')
-		s = t;
+		s = x;
 	else
-		s = m;
+		s = large;
 	if (n < 16)
-		ft_putchar_fd(s[n], fd);
+		ft_putchar(s[n]);
 	else
 	{
-		ft_hexa_fd(n / 16, fd, c);
-		ft_hexa_fd(n % 16, fd, c);
+		ft_hex(n / 16, c);
+		ft_hex(n % 16, c);
 	}
-	return (lennum(n, 16) - 1);
+	return (len(n, 16) - 1);
 }

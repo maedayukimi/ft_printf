@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_string.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <maedayukimi@42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/13 02:42:07 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/12/06 08:02:47 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/09/25 19:16:37 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/25 19:54:19 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 
-int	ft_putstr_printf_fd(char *s, int fd)
+int	ft_string(char *s)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (s)
-		while (s[++i])
-			write(fd, &s[i], 1);
+		while (s[i])
+			write(1, &s[i++], 1);
 	else if (s == NULL)
 		return (write(1, "(null)", 6) - 1);
 	return (i - 1);

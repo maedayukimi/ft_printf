@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mawako <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 15:08:48 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/11/15 22:47:23 by tel-mouh         ###   ########.fr       */
+/*   Created: 2024/08/26 16:30:29 by mawako            #+#    #+#             */
+/*   Updated: 2024/09/08 16:34:24 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,26 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*p;
-	size_t	lent;
+	size_t	i;
+	char	*mem;
 
+	i = 0;
 	if (!s)
 		return (NULL);
-	lent = ft_strlen(s);
-	if (lent <= len)
-		len = lent;
-	if (lent <= start)
-		return (ft_strdup(""));
-	p = (char *)malloc(len + 1);
-	if (p == NULL)
+	if (start >= ft_strlen(s))
+	{
+		mem = (char *)malloc(1);
+		if (mem)
+			mem[0] = '\0';
+		return (mem);
+	}
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	mem = (char *)malloc((len + 1) * sizeof(char));
+	if (!mem)
 		return (NULL);
-	ft_strlcpy(p, s + start, len + 1);
-	return (p);
+	while (i < len)
+		mem[i++] = s[start++];
+	mem[i] = '\0';
+	return (mem);
 }

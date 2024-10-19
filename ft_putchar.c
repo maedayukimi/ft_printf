@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tel-mouh <tel-mouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 08:43:43 by tel-mouh          #+#    #+#             */
-/*   Updated: 2021/11/18 07:15:52 by tel-mouh         ###   ########.fr       */
+/*   Created: 2021/11/13 02:22:06 by tel-mouh          #+#    #+#             */
+/*   Updated: 2024/09/25 19:25:11 by mawako           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_putchar(char c)
 {
-	if (!lst)
-		return ;
-	while (*lst)
-	{
-		del((*lst)->content);
-		free(*lst);
-		*lst = (*lst)->next;
-	}
+	write (1, &c, 1);
 }
