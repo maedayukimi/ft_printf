@@ -1,0 +1,5 @@
+ft_printf
+printfの実装。
+使用可能な関数はmalloc free write va_start va_arg va_copy va_endに加えlibftで実装した関数。
+libftでは関数の実装がメインで関数を利用するという目的ではなかったため、ここで初めて関数を利用して何かを作るという新しいステージに入った。
+printfでは引数の制限が不定なため、vaコマンドを利用する必要があった。
